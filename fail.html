@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Платёж не прошёл — Клодовство</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' fill='%23060907'/%3E%3Cpath fill='%23d4ff00' d='M12 1.4l1.6 6.1 4.3-4.4-2.6 5.7 6-1.4-5.4 3.1 5.4 3.1-6-1.4 2.6 5.7-4.3-4.4-1.6 6.1-1.6-6.1-4.3 4.4 2.6-5.7-6 1.4 5.4-3.1L2.7 7.4l6 1.4L6.1 3.1l4.3 4.4z'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Forum&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="pay.css">
+</head>
+<body>
+<header class="topbar">
+  <a href="index.html" class="brand">
+    <svg class="spark" viewBox="0 0 24 24"><path d="M12.00 12.00Q14.10 8.16 12.00 2.40Q9.90 8.16 12.00 12.00ZM12.00 12.00Q15.26 10.81 15.74 6.19Q11.73 8.54 12.00 12.00ZM12.00 12.00Q16.12 12.43 20.12 8.29Q14.38 8.61 12.00 12.00ZM12.00 12.00Q14.21 14.44 18.27 12.90Q14.81 10.28 12.00 12.00ZM12.00 12.00Q13.53 16.10 19.26 18.29Q16.28 12.93 12.00 12.00ZM12.00 12.00Q10.74 15.17 13.89 18.45Q14.77 13.99 12.00 12.00ZM12.00 12.00Q8.96 14.91 9.43 20.75Q12.99 16.09 12.00 12.00ZM12.00 12.00Q8.65 12.12 7.07 16.27Q11.40 15.30 12.00 12.00ZM12.00 12.00Q7.90 10.47 2.50 13.37Q8.50 14.63 12.00 12.00ZM12.00 12.00Q10.36 8.94 5.71 9.13Q8.61 12.76 12.00 12.00ZM12.00 12.00Q11.90 7.96 7.33 4.73Q8.36 10.23 12.00 12.00Z"/></svg>
+    <span><b>Клодовство</b><s>курс по Claude</s></span>
+  </a>
+  <a href="index.html" class="back">На главную</a>
+</header>
+
+<main>
+  <div class="bg"></div>
+  <div class="card">
+    <div class="mark bad"><svg class="spark" viewBox="0 0 24 24"><path d="M12.00 12.00Q14.10 8.16 12.00 2.40Q9.90 8.16 12.00 12.00ZM12.00 12.00Q15.26 10.81 15.74 6.19Q11.73 8.54 12.00 12.00ZM12.00 12.00Q16.12 12.43 20.12 8.29Q14.38 8.61 12.00 12.00ZM12.00 12.00Q14.21 14.44 18.27 12.90Q14.81 10.28 12.00 12.00ZM12.00 12.00Q13.53 16.10 19.26 18.29Q16.28 12.93 12.00 12.00ZM12.00 12.00Q10.74 15.17 13.89 18.45Q14.77 13.99 12.00 12.00ZM12.00 12.00Q8.96 14.91 9.43 20.75Q12.99 16.09 12.00 12.00ZM12.00 12.00Q8.65 12.12 7.07 16.27Q11.40 15.30 12.00 12.00ZM12.00 12.00Q7.90 10.47 2.50 13.37Q8.50 14.63 12.00 12.00ZM12.00 12.00Q10.36 8.94 5.71 9.13Q8.61 12.76 12.00 12.00ZM12.00 12.00Q11.90 7.96 7.33 4.73Q8.36 10.23 12.00 12.00Z"/></svg></div>
+    <h1>Врата не&nbsp;открылись</h1>
+    <p class="lead">Платёж не&nbsp;прошёл, деньги остались у&nbsp;тебя. Чаще всего это лимит по&nbsp;карте, опечатка в&nbsp;данных или банк не&nbsp;пропустил операцию.</p>
+
+    <div class="order" id="order" hidden>Причина <b id="errText"></b></div>
+
+    <div class="row">
+      <a href="index.html#tiers" class="btn"><span>Попробовать снова</span></a>
+      <a href="https://t.me/dimasterrr" target="_blank" rel="noopener" class="btn ghost"><span>Написать мне</span></a>
+    </div>
+
+    <p class="note">Если не&nbsp;получается второй раз, напиши: подберём другой способ оплаты.</p>
+  </div>
+</main>
+
+<script>
+const q=new URLSearchParams(location.search);
+const e=q.get('Message')||q.get('Details')||q.get('error');
+if(e){document.getElementById('errText').textContent=e;document.getElementById('order').hidden=false}
+</script>
+<footer>
+  <span>© 2026 Клодовство · Дмитрий Барилко</span>
+  <a href="https://t.me/dimasterrr" target="_blank" rel="noopener">@dimasterrr</a>
+</footer>
+</body>
+</html>
