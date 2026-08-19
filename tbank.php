@@ -13,6 +13,11 @@ function cfg(): array {
     $f = __DIR__ . '/config.php';
     if (!is_file($f)) fail_hard('Нет файла config.php. Скопируй config.sample.php и заполни доступы.');
     $c = require $f;
+    // при копипасте из кабинета банка легко прилипает пробел или перенос строки,
+    // а подпись от этого разъезжается и банк отвечает «неверный токен»
+    foreach (['terminal_key', 'password'] as $k) {
+      if (isset($c[$k])) $c[$k] = trim((string)$c[$k], " \t\n\r\0\x0B\xC2\xA0");
+    }
   }
   return $c;
 }
