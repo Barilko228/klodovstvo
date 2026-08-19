@@ -8,7 +8,12 @@ $c = cfg();
 $paymentId = preg_replace('~\D~', '', $_GET['PaymentId'] ?? $_GET['paymentId'] ?? '');
 $orderId   = preg_replace('~[^a-z0-9\-]~i', '', $_GET['OrderId'] ?? $_GET['orderId'] ?? '');
 
-log_line('RETURN ' . json_encode($_GET, JSON_UNESCAPED_UNICODE));
+log_line('RETURN ' . json_encode($_GET, JSON_UNESCAPED_UNICODE) . ' cookie=' . ($_COOKIE['kl_order'] ?? '-'));
+
+// адрес возврата может прийти вообще без параметров — тогда спасает браузер покупателя
+if ($orderId === '' && !empty($_COOKIE['kl_order'])) {
+  $orderId = preg_replace('~[^a-z0-9\-]~i', '', $_COOKIE['kl_order']);
+}
 
 // банк не всегда возвращает номер платежа в адресе,
 // но он у нас уже сохранён в заказе при его создании

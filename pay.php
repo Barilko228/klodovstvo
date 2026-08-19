@@ -21,7 +21,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   else {
     $phone = '+' . $digits;
     $r = create_payment($tariff, $email, $phone, $name);
-    if ($r) { header('Location: ' . $r['url']); exit; }
+    if ($r) {
+      // банк не всегда возвращает номер заказа в адресе,
+      // поэтому запоминаем его в браузере покупателя на сутки
+      setcookie('kl_order', $r['order'], [
+        'expires' => time() + 86400, 'path' => '/', 'samesite' => 'Lax', 'secure' => !empty($_SERVER['HTTPS']),
+      ]);
+      header('Location: ' . $r['url']); exit;
+    }
     $err = 'Банк не принял платёж. Попробуй ещё раз или напиши мне.';
   }
 }
