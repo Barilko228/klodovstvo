@@ -19,7 +19,11 @@ return [
   'taxation'     => 'usn_income',
 
   // ── куда ведём после оплаты
-  'course_link'  => 'https://t.me/+G2O9nigl3MZiMGZi',
+  // ── закрытые каналы с курсом: свой на каждый тариф
+  'course_links' => [
+    '1' => 'https://t.me/+Z13BuLV0GxA4NGFi',   // Ученик, 4 990
+    '2' => 'https://t.me/+CqTPDvAG5uNmYjYy',   // Клодун, 9 990
+  ],
   'support_tg'   => 'https://t.me/dimasterrr',
 
   // ── тарифы: id => [название, цена в рублях]
