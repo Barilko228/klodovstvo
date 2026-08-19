@@ -32,9 +32,17 @@ if ($paymentId !== '') {
 if ($orderId !== '') $order = load_order($orderId);
 if (!$ok && $order && !empty($order['paid'])) $ok = true;   // уведомление могло прийти раньше возврата
 
-// свой канал на каждый тариф
+// свой канал на каждый тариф.
+// значения по умолчанию вшиты сюда, чтобы работало без правки config.php;
+// если в config.php задан course_links — он главнее.
+$channels = [
+  '1' => 'https://t.me/+Z13BuLV0GxA4NGFi',   // Ученик, 4 990
+  '2' => 'https://t.me/+CqTPDvAG5uNmYjYy',   // Клодун, 9 990
+];
 $tariff = (string)($order['tariff'] ?? '');
-$link = $c['course_links'][$tariff] ?? ($c['course_links']['1'] ?? ($c['course_link'] ?? ''));
+$link = $c['course_links'][$tariff]
+     ?? $channels[$tariff]
+     ?? $channels['1'];
 
 // банк подтверждает платёж не мгновенно: пару раз переспросим сами
 $try = max(0, min(6, (int)($_GET['try'] ?? 0)));
