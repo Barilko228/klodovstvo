@@ -98,5 +98,6 @@ $h = fn($s) => htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8');
   <span>© 2026 Клодовство · Дмитрий Барилко</span>
   <a href="<?= $h($c['support_tg']) ?>" target="_blank" rel="noopener">@dimasterrr</a>
 </footer>
+<script src="cookie.js"></script>
 </body>
 </html>

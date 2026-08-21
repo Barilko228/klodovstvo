@@ -17,7 +17,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if (mb_strlen($name) < 2)                                   $err = 'Напиши, как тебя зовут.';
   elseif (!filter_var($email, FILTER_VALIDATE_EMAIL))         $err = 'Проверь почту: на неё придут чек и доступ.';
   elseif (strlen($digits) < 11)                               $err = 'Телефон нужен полностью, с кодом страны.';
-  elseif (empty($_POST['agree']))                             $err = 'Без согласия с офертой оплату принять нельзя.';
+  elseif (empty($_POST['agree_offer']))                       $err = 'Нужно принять условия договора оферты.';
+  elseif (empty($_POST['agree_pd']))                          $err = 'Нужно согласие на обработку персональных данных.';
   else {
     $phone = '+' . $digits;
     $r = create_payment($tariff, $email, $phone, $name);
@@ -52,7 +53,9 @@ form{max-width:420px;margin:0 auto;text-align:left}
   width:100%;background:rgba(255,244,226,.04);border:1px solid var(--line);color:var(--parchment);
   font-family:var(--f-ui);font-size:15px;padding:13px 15px;outline:none;transition:border-color .3s,background .3s}
 .field input:focus{border-color:var(--lime);background:rgba(212,255,0,.05)}
-.agree{display:flex;gap:11px;align-items:flex-start;font-size:12.5px;line-height:1.5;color:rgba(255,244,226,.6);margin:20px 0 24px}
+.agree{display:flex;gap:11px;align-items:flex-start;font-size:12.5px;line-height:1.5;color:rgba(255,244,226,.6);margin:14px 0}
+.agree:first-of-type{margin-top:20px}
+.agree:last-of-type{margin-bottom:24px}
 .agree input{margin-top:2px;accent-color:#d4ff00;width:16px;height:16px;flex:none}
 .agree a{color:var(--gold-lt)}
 .sum{display:flex;justify-content:space-between;align-items:baseline;padding:16px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:22px}
@@ -90,9 +93,15 @@ button.btn{width:100%;border:1px solid var(--gold);cursor:pointer;font-family:va
         <input type="tel" name="phone" value="<?= $h($phone) ?>" placeholder="+7 999 123-45-67" autocomplete="tel" required></div>
 
       <label class="agree">
-        <input type="checkbox" name="agree" value="1" <?= !empty($_POST['agree']) ? 'checked' : '' ?>>
-        <span>Согласен с <a href="https://disk.yandex.ru/i/0ASFtmQFfmXgKg" target="_blank" rel="noopener">офертой</a>
-        и <a href="https://disk.yandex.ru/i/EfOxFurPLNch7g" target="_blank" rel="noopener">обработкой персональных данных</a></span>
+        <input type="checkbox" name="agree_offer" value="1" <?= !empty($_POST['agree_offer']) ? 'checked' : '' ?>>
+        <span>Принимаю условия
+        <a href="https://disk.yandex.ru/i/0ASFtmQFfmXgKg" target="_blank" rel="noopener">договора оферты</a></span>
+      </label>
+
+      <label class="agree">
+        <input type="checkbox" name="agree_pd" value="1" <?= !empty($_POST['agree_pd']) ? 'checked' : '' ?>>
+        <span>Даю <a href="https://disk.yandex.ru/i/EfOxFurPLNch7g" target="_blank" rel="noopener">согласие на обработку персональных данных</a>
+        и ознакомлен с <a href="https://disk.yandex.ru/i/R0ZyhCkG86cKQg" target="_blank" rel="noopener">политикой обработки данных</a></span>
       </label>
 
       <button type="submit" class="btn"><span>Перейти к оплате</span></button>
@@ -105,5 +114,6 @@ button.btn{width:100%;border:1px solid var(--gold);cursor:pointer;font-family:va
   <span>© 2026 Клодовство · Дмитрий Барилко</span>
   <a href="<?= $h($c['support_tg']) ?>" target="_blank" rel="noopener">Написать, если что-то не так</a>
 </footer>
+<script src="cookie.js"></script>
 </body>
 </html>
